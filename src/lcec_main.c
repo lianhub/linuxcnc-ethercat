@@ -39,6 +39,8 @@
 #include "lcec_em7004.h"
 #include "lcec_stmds5k.h"
 #include "lcec_deasda.h"
+#include "lcec_ax5000.h"
+#include "config_idns.h"
 
 #include "rtapi_app.h"
 
@@ -58,7 +60,7 @@ static const lcec_typelist_t types[] = {
   // bus coupler
   { lcecSlaveTypeEK1100, LCEC_EK1100_VID, LCEC_EK1100_PID, LCEC_EK1100_PDOS, NULL},
   { lcecSlaveTypeEK1110, LCEC_EK1110_VID, LCEC_EK1110_PID, LCEC_EK1110_PDOS, NULL},
-  
+ 
   // digital in
   { lcecSlaveTypeEL1002, LCEC_EL1xxx_VID, LCEC_EL1002_PID, LCEC_EL1002_PDOS, lcec_el1xxx_init},
   { lcecSlaveTypeEL1004, LCEC_EL1xxx_VID, LCEC_EL1004_PID, LCEC_EL1004_PDOS, lcec_el1xxx_init},
@@ -159,6 +161,7 @@ static const lcec_typelist_t types[] = {
 
   // Delta ASDA series
   { lcecSlaveTypeDeASDA, LCEC_DEASDA_VID, LCEC_DEASDA_PID, LCEC_DEASDA_PDOS, lcec_deasda_init},
+  { lcecSlaveTypeAX5206, LCEC_AX5000_VID, LCEC_AX5206_PID, LCEC_AX5206_PDOS, lcec_ax5000_init},
 
   { lcecSlaveTypeInvalid }
 };
@@ -261,9 +264,12 @@ int rtapi_app_main(void) {
         }
       }
       pdo_entry_regs += slave->pdo_entry_count;
-
+   
+	  if(slave->pid==0x14566012) // AX5206
+		config_idns(slave->config);
+   
       // configure dc for this slave
-      if (slave->dc_conf != NULL) {
+      if (slave->dc_conf != NULL) {     
         ecrt_slave_config_dc(slave->config, slave->dc_conf->assignActivate,
           slave->dc_conf->sync0Cycle, slave->dc_conf->sync0Shift,
           slave->dc_conf->sync1Cycle, slave->dc_conf->sync1Shift);

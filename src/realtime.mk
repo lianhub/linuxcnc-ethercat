@@ -24,7 +24,7 @@ module = $(patsubst %.o,%.so,$(obj-m))
 EXTRA_CFLAGS := $(filter-out -Wframe-larger-than=%,$(EXTRA_CFLAGS))
 
 $(module): $(lcec-objs)
-	$(CC) -shared -o $@ $(lcec-objs) -Wl,-rpath,$(LIBDIR) -L$(LIBDIR) -llinuxcnchal -lethercat -lrt
+	$(CC) -shared -o $@ $(lcec-objs) -Wl,-rpath,$(LIBDIR) -L$(LIBDIR) -L/opt/etherlab/lib/ -llinuxcnchal -lethercat -lrt
 
 %.o: %.c
 	$(CC) -o $@ $(EXTRA_CFLAGS) -Os -c $<

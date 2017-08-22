@@ -44,7 +44,8 @@ typedef struct {
 static const LCEC_CONF_TYPELIST_T slaveTypes[] = {
   // bus coupler
   { "EK1100", lcecSlaveTypeEK1100 },
-
+  { "EK1110", lcecSlaveTypeEK1110 },
+  
   // generic device
   { "generic", lcecSlaveTypeGeneric },
 

@@ -19,6 +19,7 @@
 #include "lcec.h"
 #include "lcec_generic.h"
 #include "lcec_ek1100.h"
+#include "lcec_ek1110.h"
 #include "lcec_el1xxx.h"
 #include "lcec_el1252.h"
 #include "lcec_el2xxx.h"
@@ -56,7 +57,8 @@ typedef struct lcec_typelist {
 static const lcec_typelist_t types[] = {
   // bus coupler
   { lcecSlaveTypeEK1100, LCEC_EK1100_VID, LCEC_EK1100_PID, LCEC_EK1100_PDOS, NULL},
-
+  { lcecSlaveTypeEK1110, LCEC_EK1110_VID, LCEC_EK1110_PID, LCEC_EK1110_PDOS, NULL},
+  
   // digital in
   { lcecSlaveTypeEL1002, LCEC_EL1xxx_VID, LCEC_EL1002_PID, LCEC_EL1002_PDOS, lcec_el1xxx_init},
   { lcecSlaveTypeEL1004, LCEC_EL1xxx_VID, LCEC_EL1004_PID, LCEC_EL1004_PDOS, lcec_el1xxx_init},
